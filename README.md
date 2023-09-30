@@ -5,4 +5,4 @@
 Javascript
 NodeJs
 Express Реализованно взаимодействие сервера с базой данных mongodb
-Бэкенд размещён по адресу: 
+Бэкенд размещён по адресу: https://api.movies.balineseleaf.nomoredomainsrocks.ru
