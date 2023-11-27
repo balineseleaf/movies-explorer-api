@@ -1,6 +1,6 @@
 const allowedCors = [
-  "https://movies.balineseleaf.nomoredomainsrocks.ru/",
-  "http://movies.balineseleaf.nomoredomainsrocks.ru/",
+  "https://movies.balineseleaf.nomoredomainsrocks.ru",
+  "http://movies.balineseleaf.nomoredomainsrocks.ru",
   "http://localhost:3000",
   "http://localhost:3001",
 ];
