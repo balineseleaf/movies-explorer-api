@@ -37,6 +37,14 @@ mongoose
 // Создаем приложение
 const app = express();
 
+app.use(
+  cors({
+    origin: corseAllowedOrigins,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(helmet());
 
 app.use(express.json()); // обработка запросов json
@@ -51,13 +59,6 @@ app.use(router);
 app.use(errorLogger); // подключаем логгер ошибок
 
 // используем cors
-app.use(
-  cors({
-    origin: corseAllowedOrigins,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
 
 app.use(errors()); // обработчик ошибок celebrate
 // errors() будет обрабатывать только ошибки, которые сгенерировал celebrate.
