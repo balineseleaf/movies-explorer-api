@@ -1,28 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const helmet = require("helmet");
-const { errors } = require("celebrate"); // обработчик ошибок celebrate
-const cors = require("cors");
-const { rateLimit } = require("express-rate-limit");
-const { DB_URL } = require("./config");
-const router = require("./routes");
-const errorHandler = require("./middlewares/errorHandler");
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const { errors } = require('celebrate'); // обработчик ошибок celebrate
+const cors = require('cors');
+const { rateLimit } = require('express-rate-limit');
+const { DB_URL } = require('./config');
+const router = require('./routes');
+const errorHandler = require('./middlewares/errorHandler');
 // const corsError = require('./middlewares/corsError');
-const { requestLogger, errorLogger } = require("./middlewares/logger");
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: "draft-7", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
 const corseAllowedOrigins = [
-  "https://movies.balineseleaf.nomoredomainsrocks.ru",
-  "http://movies.balineseleaf.nomoredomainsrocks.ru",
-  "http://localhost:3000",
-  "http://localhost:3001",
+  'https://movies.balineseleaf.nomoredomainsrocks.ru',
+  'http://movies.balineseleaf.nomoredomainsrocks.ru',
+  'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 // параметры порта
@@ -32,7 +32,7 @@ mongoose
   .connect(DB_URL, {
     useNewUrlParser: true,
   })
-  .then(() => console.log("Connected to mongodb"));
+  .then(() => console.log('Connected to mongodb'));
 
 // Создаем приложение
 const app = express();
@@ -40,9 +40,9 @@ const app = express();
 app.use(
   cors({
     origin: corseAllowedOrigins,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-  })
+  }),
 );
 
 app.use(helmet());
