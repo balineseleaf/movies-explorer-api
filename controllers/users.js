@@ -97,15 +97,14 @@ const login = (req, res, next) => {
   );
 };
 
-// Контроллек запроса выхода пользователя
-const logout = (req, res) => {
-  res.clearCookie('token').send({ message: 'Куки удалены' });
-};
+// Контроллер запроса выхода пользователя
+// const logout = (req, res) => {
+//   res.clearCookie('token').send({ message: 'Куки удалены' });
+// };
 
 module.exports = {
   getUser,
   updateUser,
   postUser,
   login,
-  logout,
 };
