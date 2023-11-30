@@ -18,11 +18,11 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-const corseAllowedOrigins = [
-  'https://movies.balineseleaf.nomoredomainsrocks.ru',
-  'http://movies.balineseleaf.nomoredomainsrocks.ru',
-  'http://localhost:3000',
-  'http://localhost:3001',
+const corseAllowedOrigins = ['*',
+  // 'https://movies.balineseleaf.nomoredomainsrocks.ru',
+  // 'http://movies.balineseleaf.nomoredomainsrocks.ru',
+  // 'http://localhost:3000',
+  // 'http://localhost:3001',
 ];
 
 // параметры порта
