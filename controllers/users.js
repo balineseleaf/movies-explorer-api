@@ -88,10 +88,7 @@ const login = (req, res, next) => {
               NODE_ENV === 'production' ? JWT : 'dev-secret',
               { expiresIn: '7d' },
             );
-            return res.status(200).cookie('authorization', `Bearer ${token}`, {
-              maxAge: 3600000 * 24 * 7,
-              httpOnly: true,
-            }).send({ message: 'Куки отправлены' });
+            return res.status(200).send({ JWT: token });
           }
           return next(new UnauthorizedError('Неправильные почта или пароль'));
         });
@@ -101,14 +98,13 @@ const login = (req, res, next) => {
 };
 
 // Контроллер запроса выхода пользователя
-const logout = (req, res) => {
-  res.clearCookie('token').send({ message: 'Куки удалены' });
-};
+// const logout = (req, res) => {
+//   res.clearCookie('token').send({ message: 'Куки удалены' });
+// };
 
 module.exports = {
   getUser,
   updateUser,
   postUser,
   login,
-  logout,
 };

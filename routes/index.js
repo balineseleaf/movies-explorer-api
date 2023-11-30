@@ -1,6 +1,6 @@
 const router = require('express').Router(); // создаёт объект, на который мы и повесим обработчики
 const { validateSignIn, validateSignUp } = require('../utils/validation');
-const { login, postUser, logout } = require('../controllers/users');
+const { login, postUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 
 const NotFoundError = require('../errors/NotFoundError');
@@ -16,7 +16,7 @@ router.use('/users', auth, userRouter); // добавл мидлвеир авт�
 
 router.use('/movies', auth, movieRouter); // добавл мидлвеир авторизации
 
-router.post('/signout', logout);
+// router.post('/signout', logout);
 
 router.use('*', (req, res, next) => next(new NotFoundError('Запрашиваемая страница не найдена')));
 

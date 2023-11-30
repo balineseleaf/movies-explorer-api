@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate'); // обработчик ошибок celebrate
 const cors = require('cors');
 const { rateLimit } = require('express-rate-limit');
@@ -54,7 +54,7 @@ app.use(requestLogger); // подключаем логгер запросов
 // ограничиваем кол-во запросов
 app.use(limiter);
 
-app.use(cookieParser()); // для извлечения данных из куков
+// app.use(cookieParser()); // для извлечения данных из куков
 
 app.use(router);
 
