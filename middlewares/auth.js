@@ -5,7 +5,7 @@ const { NODE_ENV, JWT } = process.env;
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
 function auth(req, res, next) {
-  const { authorization } = req.cookies;
+  const { authorization } = req.headers;
   console.log('1', authorization);
 
   if (!authorization || !authorization.startsWith('Bearer ')) { // Сначала обработаем ошибку — случай, когда токена нет в заголовке:

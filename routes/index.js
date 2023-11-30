@@ -18,6 +18,6 @@ router.use('/movies', auth, movieRouter); // добавл мидлвеир ав�
 
 router.post('/signout', logout);
 
-router.use('*', auth, (req, res, next) => next(new NotFoundError('Запрашиваемая страница не найдена')));
+router.use('*', (req, res, next) => next(new NotFoundError('Запрашиваемая страница не найдена')));
 
 module.exports = router;
