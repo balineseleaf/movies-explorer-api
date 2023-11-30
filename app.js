@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate'); // обработчик ошибок celebrate
-// const cors = require('cors');
+const cors = require('cors');
 const { rateLimit } = require('express-rate-limit');
 const { DB_URL } = require('./config');
 const router = require('./routes');
@@ -18,12 +18,12 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-// const corseAllowedOrigins = [
-//   'https://movies.balineseleaf.nomoredomainsrocks.ru',
-//   'http://movies.balineseleaf.nomoredomainsrocks.ru',
-//   'http://localhost:3000',
-//   'http://localhost:3001',
-// ];
+const corseAllowedOrigins = [
+  'https://movies.balineseleaf.nomoredomainsrocks.ru',
+  'http://movies.balineseleaf.nomoredomainsrocks.ru',
+  'http://localhost:3000',
+  'http://localhost:3001',
+];
 
 // параметры порта
 const { PORT = 3000 } = process.env;
@@ -37,13 +37,13 @@ mongoose
 // Создаем приложение
 const app = express();
 
-// app.use(
-//   cors({
-//     origin: corseAllowedOrigins,
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     credentials: true,
-//   }),
-// );
+app.use(
+  cors({
+    origin: corseAllowedOrigins,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+);
 
 app.use(helmet());
 
