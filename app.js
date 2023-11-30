@@ -26,7 +26,7 @@ const corseAllowedOrigins = [
 ];
 
 // параметры порта
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
 // подключаемся к базе данных
 mongoose
   .connect(DB_URL, {
