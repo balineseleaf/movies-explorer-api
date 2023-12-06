@@ -22,31 +22,29 @@ const getUser = (req, res, next) => {
 
 // создание пользователя
 const createUser = (req, res, next) => {
-  const { email, password, name } = req.body;
-  return bcrypt
-    .hash(password, 10)
+  const {
+    name, email, password,
+  } = req.body;
+  bcrypt.hash(password, 10)
     .then((hash) => userSchema.create({
+      name,
       email,
       password: hash,
-      name,
-    }))
-    .then((userData) => {
-      res.status(201).send({
-        email: userData.email,
-        name: userData.name,
-      });
     })
-    .catch((err) => {
-      if (err.code === 11000) {
-        return next(
-          new ConflictError('Пользователь с таким email уже зарегестрирован'),
-        );
-      }
-      if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError(`Некорректные данные: ${err.name}`));
-      }
-      return next(err);
-    });
+      .then((user) => {
+        res.status(201).send({
+          name: user.name, email: user.email, _id: user._id,
+        });
+      })
+      .catch((error) => {
+        if (error.code === 11000) {
+          next(new ConflictError('Такой пользователь уже существует'));
+        } else if (error instanceof mongoose.Error.ValidationError) {
+          next(new BadRequestError('Некорректный формат данных'));
+        } else {
+          next(error);
+        }
+      }));
 };
 
 // обновить данные
