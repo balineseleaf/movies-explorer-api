@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-// const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate'); // обработчик ошибок celebrate
 const cors = require('cors');
 const { rateLimit } = require('express-rate-limit');
@@ -10,6 +9,7 @@ const { DB_URL } = require('./config');
 const router = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+// const { MONGO_DEV_URL, DEV_PORT } = require('./utils/constants');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
