@@ -21,7 +21,7 @@ const getUser = (req, res, next) => {
 };
 
 // создание пользователя
-const postUser = (req, res, next) => {
+const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
   return bcrypt
     .hash(password, 10)
@@ -88,7 +88,7 @@ const login = (req, res, next) => {
               NODE_ENV === 'production' ? JWT : 'dev-secret',
               { expiresIn: '7d' },
             );
-            return res.status(200).send({ JWT: token });
+            return res.status(200).send({ token });
           }
           return next(new UnauthorizedError('Неправильные почта или пароль'));
         });
@@ -105,6 +105,6 @@ const login = (req, res, next) => {
 module.exports = {
   getUser,
   updateUser,
-  postUser,
+  createUser,
   login,
 };
