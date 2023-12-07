@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const userSchema = require('../models/users');
 
 const BadRequestError = require('../errors/BadRequestError');
@@ -25,26 +25,26 @@ const createUser = (req, res, next) => {
   const {
     name, email, password,
   } = req.body;
-  bcrypt.hash(password, 10)
+  return bcrypt.hash(password, 10)
     .then((hash) => userSchema.create({
       name,
       email,
       password: hash,
+    }))
+    .then((user) => {
+      res.status(201).send({
+        name: user.name, email: user.email, _id: user._id,
+      });
     })
-      .then((user) => {
-        res.status(201).send({
-          name: user.name, email: user.email, _id: user._id,
-        });
-      })
-      .catch((error) => {
-        if (error.code === 11000) {
-          next(new ConflictError('Такой пользователь уже существует'));
-        } else if (error instanceof mongoose.Error.ValidationError) {
-          next(new BadRequestError('Некорректный формат данных'));
-        } else {
-          next(error);
-        }
-      }));
+    .catch((err) => {
+      if (err.code === 11000) {
+        return next(new ConflictError('Пользователь с таким email уже существует'));
+      }
+      if (err instanceof mongoose.Error.ValidationError) {
+        return next(new BadRequestError(`Некорректные данные: ${err.name}`));
+      }
+      return next(err);
+    });
 };
 
 // обновить данные
