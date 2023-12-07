@@ -22,8 +22,6 @@ const limiter = rateLimit({
 const corseAllowedOrigins = [
   'https://movies.balineseleaf.nomoredomainsrocks.ru',
   'http://movies.balineseleaf.nomoredomainsrocks.ru',
-  'http://localhost:3000',
-  'http://localhost:3001',
 ];
 
 // параметры порта
