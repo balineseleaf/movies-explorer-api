@@ -24,17 +24,17 @@ const limiter = rateLimit({
 //   'http://movies.balineseleaf.nomoredomainsrocks.ru',
 // ];
 
-const options = {
-  origin: [
-    'https://movies.balineseleaf.nomoredomainsrocks.ru',
-    'http://movies.balineseleaf.nomoredomainsrocks.ru',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  credentials: true,
-};
+// const options = {
+//   origin: [
+//     'https://movies.balineseleaf.nomoredomainsrocks.ru',
+//     'http://movies.balineseleaf.nomoredomainsrocks.ru',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+//   credentials: true,
+// };
 
 // параметры порта
 const { PORT } = process.env;
@@ -48,7 +48,7 @@ mongoose
 // Создаем приложение
 const app = express();
 
-app.use(cors(options));
+app.use(cors());
 
 app.use(helmet());
 
