@@ -19,10 +19,22 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-const corseAllowedOrigins = [
-  'https://movies.balineseleaf.nomoredomainsrocks.ru',
-  'http://movies.balineseleaf.nomoredomainsrocks.ru',
-];
+// const corseAllowedOrigins = [
+//   'https://movies.balineseleaf.nomoredomainsrocks.ru',
+//   'http://movies.balineseleaf.nomoredomainsrocks.ru',
+// ];
+
+const options = {
+  origin: [
+    'https://movies.balineseleaf.nomoredomainsrocks.ru',
+    'http://movies.balineseleaf.nomoredomainsrocks.ru',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
 // параметры порта
 const { PORT } = process.env;
@@ -36,13 +48,7 @@ mongoose
 // Создаем приложение
 const app = express();
 
-app.use(
-  cors({
-    origin: corseAllowedOrigins,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  }),
-);
+app.use(cors(options));
 
 app.use(helmet());
 
@@ -52,8 +58,6 @@ app.use(requestLogger); // подключаем логгер запросов
 
 // ограничиваем кол-во запросов
 app.use(limiter);
-
-// app.use(cookieParser()); // для извлечения данных из куков
 
 app.use(router);
 
